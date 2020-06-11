@@ -10,12 +10,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qakj.crm.pojo.Customer;
+import com.qakj.crm.pojo.Maven;
 import com.qakj.crm.service.CustomerService;
 @RequestMapping("/customerController")
 @RestController
 public class CustomerController {
 	@Autowired
 	private CustomerService cs;
+	@RequestMapping("/getmaven")
+	public Object getmaven(){
+		List<Maven> list = cs.getmaven();
+		Map<String,Object> map = new HashMap<String,Object>();
+		if(list!=null){
+			map.put("code", "520");
+			map.put("data", list);
+			return map;
+		}
+		map.put("code", "400");
+		return map;
+	}
 	@RequestMapping("/getall")
 	public Object getall(){
 		List<Customer> list = cs.getAll();

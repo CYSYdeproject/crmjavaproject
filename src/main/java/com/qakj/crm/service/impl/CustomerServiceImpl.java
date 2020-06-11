@@ -10,12 +10,17 @@ import com.qakj.crm.mapper.CustomerMapper;
 import com.qakj.crm.pojo.Customer;
 import com.qakj.crm.pojo.CustomerExample;
 import com.qakj.crm.pojo.CustomerExample.Criteria;
+import com.qakj.crm.pojo.Maven;
 import com.qakj.crm.service.CustomerService;
 @Transactional
 @Service
 public class CustomerServiceImpl implements CustomerService{
 	@Autowired
 	private CustomerMapper cm;
+	@Override
+	public List<Maven> getmaven() {
+	return cm.getmaven();	
+	}
 	@Override
 	public List<Customer> getAll() {  
 		return cm.selectByExample(null);
@@ -38,6 +43,7 @@ public class CustomerServiceImpl implements CustomerService{
 		Customer customer = cm.selectByPrimaryKey(id);
 		return customer;
 	}
+	
 	
 
 }

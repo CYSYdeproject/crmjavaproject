@@ -2,10 +2,14 @@ package com.qakj.crm.mapper;
 
 import com.qakj.crm.pojo.Customer;
 import com.qakj.crm.pojo.CustomerExample;
+import com.qakj.crm.pojo.Maven;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CustomerMapper {
+	List<Maven> getmaven();
+	
 	List<Customer> selectCustomers(@Param("start") int start,@Param("len") int len,@Param("searchName") String searchName);
     int countByExample(CustomerExample example);
 

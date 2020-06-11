@@ -9,7 +9,17 @@ import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Customer {
-    private Integer id;
+	private Maven maven;
+	
+    public Maven getMaven() {
+		return maven;
+	}
+
+	public void setMaven(Maven maven) {
+		this.maven = maven;
+	}
+
+	private Integer id;
 
     private String name;
 

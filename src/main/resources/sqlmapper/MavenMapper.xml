@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qakj.crm.mapper.MavenMapper" >
+	
+  <resultMap id="BaseResultMap" type="com.qakj.crm.pojo.Maven" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="mavenname" property="mavenname" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="VARCHAR" />
+    <result column="effectivetime" property="effectivetime" jdbcType="VARCHAR" />
+    <result column="mlevel" property="mlevel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, mavenname, discount, effectivetime, mlevel
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qakj.crm.pojo.MavenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from maven
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from maven
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from maven
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qakj.crm.pojo.MavenExample" >
+    delete from maven
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qakj.crm.pojo.Maven" >
+    insert into maven (id, mavenname, discount, 
+      effectivetime, mlevel)
+    values (#{id,jdbcType=INTEGER}, #{mavenname,jdbcType=VARCHAR}, #{discount,jdbcType=VARCHAR}, 
+      #{effectivetime,jdbcType=VARCHAR}, #{mlevel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qakj.crm.pojo.Maven" >
+    insert into maven
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="mavenname != null" >
+        mavenname,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="effectivetime != null" >
+        effectivetime,
+      </if>
+      <if test="mlevel != null" >
+        mlevel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="mavenname != null" >
+        #{mavenname,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="effectivetime != null" >
+        #{effectivetime,jdbcType=VARCHAR},
+      </if>
+      <if test="mlevel != null" >
+        #{mlevel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qakj.crm.pojo.MavenExample" resultType="java.lang.Integer" >
+    select count(*) from maven
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update maven
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.mavenname != null" >
+        mavenname = #{record.mavenname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discount != null" >
+        discount = #{record.discount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.effectivetime != null" >
+        effectivetime = #{record.effectivetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mlevel != null" >
+        mlevel = #{record.mlevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update maven
+    set id = #{record.id,jdbcType=INTEGER},
+      mavenname = #{record.mavenname,jdbcType=VARCHAR},
+      discount = #{record.discount,jdbcType=VARCHAR},
+      effectivetime = #{record.effectivetime,jdbcType=VARCHAR},
+      mlevel = #{record.mlevel,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qakj.crm.pojo.Maven" >
+    update maven
+    <set >
+      <if test="mavenname != null" >
+        mavenname = #{mavenname,jdbcType=VARCHAR},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=VARCHAR},
+      </if>
+      <if test="effectivetime != null" >
+        effectivetime = #{effectivetime,jdbcType=VARCHAR},
+      </if>
+      <if test="mlevel != null" >
+        mlevel = #{mlevel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qakj.crm.pojo.Maven" >
+    update maven
+    set mavenname = #{mavenname,jdbcType=VARCHAR},
+      discount = #{discount,jdbcType=VARCHAR},
+      effectivetime = #{effectivetime,jdbcType=VARCHAR},
+      mlevel = #{mlevel,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

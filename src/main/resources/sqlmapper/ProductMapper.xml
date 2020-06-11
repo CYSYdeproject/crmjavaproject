@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qakj.crm.mapper.ProductMapper" >
+<select id="selectproductbyprice" parameterType="map" resultMap="BaseResultMap">
+	<![CDATA[SELECT * FROM products WHERE productprice >#{selectprice1} AND productprice <#{selectprice2} limit #{start},#{len}]]> 
+</select>
+  <resultMap id="BaseResultMap" type="com.qakj.crm.pojo.Product" >
+    <id column="productid" property="productid" jdbcType="INTEGER" />
+    <result column="productprice" property="productprice" jdbcType="INTEGER" />
+    <result column="productdes" property="productdes" jdbcType="VARCHAR" />
+    <result column="productsize" property="productsize" jdbcType="VARCHAR" />
+    <result column="productimg" property="productimg" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    productid, productprice, productdes, productsize, productimg
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qakj.crm.pojo.ProductExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from products
+    where productid = #{productid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from products
+    where productid = #{productid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qakj.crm.pojo.ProductExample" >
+    delete from products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qakj.crm.pojo.Product" >
+    insert into products (productid, productprice, productdes, 
+      productsize, productimg)
+    values (#{productid,jdbcType=INTEGER}, #{productprice,jdbcType=INTEGER}, #{productdes,jdbcType=VARCHAR}, 
+      #{productsize,jdbcType=VARCHAR}, #{productimg,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qakj.crm.pojo.Product" >
+    insert into products
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        productid,
+      </if>
+      <if test="productprice != null" >
+        productprice,
+      </if>
+      <if test="productdes != null" >
+        productdes,
+      </if>
+      <if test="productsize != null" >
+        productsize,
+      </if>
+      <if test="productimg != null" >
+        productimg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productid != null" >
+        #{productid,jdbcType=INTEGER},
+      </if>
+      <if test="productprice != null" >
+        #{productprice,jdbcType=INTEGER},
+      </if>
+      <if test="productdes != null" >
+        #{productdes,jdbcType=VARCHAR},
+      </if>
+      <if test="productsize != null" >
+        #{productsize,jdbcType=VARCHAR},
+      </if>
+      <if test="productimg != null" >
+        #{productimg,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qakj.crm.pojo.ProductExample" resultType="java.lang.Integer" >
+    select count(*) from products
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update products
+    <set >
+      <if test="record.productid != null" >
+        productid = #{record.productid,jdbcType=INTEGER},
+      </if>
+      <if test="record.productprice != null" >
+        productprice = #{record.productprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.productdes != null" >
+        productdes = #{record.productdes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productsize != null" >
+        productsize = #{record.productsize,jdbcType=VARCHAR},
+      </if>
+      <if test="record.productimg != null" >
+        productimg = #{record.productimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update products
+    set productid = #{record.productid,jdbcType=INTEGER},
+      productprice = #{record.productprice,jdbcType=INTEGER},
+      productdes = #{record.productdes,jdbcType=VARCHAR},
+      productsize = #{record.productsize,jdbcType=VARCHAR},
+      productimg = #{record.productimg,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qakj.crm.pojo.Product" >
+    update products
+    <set >
+      <if test="productprice != null" >
+        productprice = #{productprice,jdbcType=INTEGER},
+      </if>
+      <if test="productdes != null" >
+        productdes = #{productdes,jdbcType=VARCHAR},
+      </if>
+      <if test="productsize != null" >
+        productsize = #{productsize,jdbcType=VARCHAR},
+      </if>
+      <if test="productimg != null" >
+        productimg = #{productimg,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qakj.crm.pojo.Product" >
+    update products
+    set productprice = #{productprice,jdbcType=INTEGER},
+      productdes = #{productdes,jdbcType=VARCHAR},
+      productsize = #{productsize,jdbcType=VARCHAR},
+      productimg = #{productimg,jdbcType=VARCHAR}
+    where productid = #{productid,jdbcType=INTEGER}
+  </update>
+</mapper>
