@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qakj.crm.mapper.ProgrammeMapper" >
+  <resultMap id="BaseResultMap" type="com.qakj.crm.pojo.Programme" >
+    <result column="Monday" property="monday" jdbcType="VARCHAR" />
+    <result column="Tuesday" property="tuesday" jdbcType="VARCHAR" />
+    <result column="Wednesday" property="wednesday" jdbcType="VARCHAR" />
+    <result column="Thursday" property="thursday" jdbcType="VARCHAR" />
+    <result column="Friday" property="friday" jdbcType="VARCHAR" />
+    <result column="Saturday" property="saturday" jdbcType="VARCHAR" />
+    <result column="Sunday" property="sunday" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qakj.crm.pojo.ProgrammeExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from programme
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.qakj.crm.pojo.ProgrammeExample" >
+    delete from programme
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qakj.crm.pojo.Programme" >
+    insert into programme (Monday, Tuesday, Wednesday, 
+      Thursday, Friday, Saturday, 
+      Sunday)
+    values (#{monday,jdbcType=VARCHAR}, #{tuesday,jdbcType=VARCHAR}, #{wednesday,jdbcType=VARCHAR}, 
+      #{thursday,jdbcType=VARCHAR}, #{friday,jdbcType=VARCHAR}, #{saturday,jdbcType=VARCHAR}, 
+      #{sunday,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qakj.crm.pojo.Programme" >
+    insert into programme
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="monday != null" >
+        Monday,
+      </if>
+      <if test="tuesday != null" >
+        Tuesday,
+      </if>
+      <if test="wednesday != null" >
+        Wednesday,
+      </if>
+      <if test="thursday != null" >
+        Thursday,
+      </if>
+      <if test="friday != null" >
+        Friday,
+      </if>
+      <if test="saturday != null" >
+        Saturday,
+      </if>
+      <if test="sunday != null" >
+        Sunday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="monday != null" >
+        #{monday,jdbcType=VARCHAR},
+      </if>
+      <if test="tuesday != null" >
+        #{tuesday,jdbcType=VARCHAR},
+      </if>
+      <if test="wednesday != null" >
+        #{wednesday,jdbcType=VARCHAR},
+      </if>
+      <if test="thursday != null" >
+        #{thursday,jdbcType=VARCHAR},
+      </if>
+      <if test="friday != null" >
+        #{friday,jdbcType=VARCHAR},
+      </if>
+      <if test="saturday != null" >
+        #{saturday,jdbcType=VARCHAR},
+      </if>
+      <if test="sunday != null" >
+        #{sunday,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qakj.crm.pojo.ProgrammeExample" resultType="java.lang.Integer" >
+    select count(*) from programme
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update programme
+    <set >
+      <if test="record.monday != null" >
+        Monday = #{record.monday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tuesday != null" >
+        Tuesday = #{record.tuesday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wednesday != null" >
+        Wednesday = #{record.wednesday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thursday != null" >
+        Thursday = #{record.thursday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.friday != null" >
+        Friday = #{record.friday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.saturday != null" >
+        Saturday = #{record.saturday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sunday != null" >
+        Sunday = #{record.sunday,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update programme
+    set Monday = #{record.monday,jdbcType=VARCHAR},
+      Tuesday = #{record.tuesday,jdbcType=VARCHAR},
+      Wednesday = #{record.wednesday,jdbcType=VARCHAR},
+      Thursday = #{record.thursday,jdbcType=VARCHAR},
+      Friday = #{record.friday,jdbcType=VARCHAR},
+      Saturday = #{record.saturday,jdbcType=VARCHAR},
+      Sunday = #{record.sunday,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
